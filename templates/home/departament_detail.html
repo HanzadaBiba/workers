@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load units_tags %}
+{% block title %}
+{{ departament.name|title }}
+{% endblock %}
+{% block content %}
+<script src="{% static 'jquery-3.4.1.js' %}"></script>
+
+
+
+<div class="content">
+<div class="container-fuild">
+    <div class="row">
+
+     {% units_all %}
+        <div class="col-sm-9">
+        <div class="list">
+        <h3>{{ departament|linebreaks }}</h3>
+            <a href="{{ departament.get_absolute_url }}">Все</a>
+        {% for foo in b%}
+            <a href="{% url 'home:status_workers' slug=departament.slug work=foo  %}">{{ foo }}</a>
+        {% endfor %}
+
+        <h4>Сотрудники</h4>
+
+<table >
+        <thead>
+            <tr>
+                <th>Фио</th>
+                <th>Должность</th>
+
+                <th>Кабинет</th>
+                <th>Ip</th>
+                {% if worker.worker.mobile_phone  %}
+                    <th>Телефонный номер</th>
+                    {% endif %}
+
+                <th>Номер</th>
+                <th>Статус</th>
+                <th>Дата отъезда</th>
+                <th>Дата приезда</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for worker in workers %}
+            {% if worker.deps_block %}
+            {% else %}
+
+            <tr>
+                <td><p>{{ worker.fullname|linebreaks  }}</p></td>
+                <td>{{ worker.position|linebreaks  }}</td>
+
+                <td>{{ worker.room|linebreaks  }}</td>
+                <td>{{ worker.ip_number|linebreaks  }}</td>
+                    {% if worker.worker.mobile_phone  %}
+                     <td>{{ worker.mobile_phone|linebreaks  }}</td>
+                    {% endif %}
+                <td>{{ worker.phone|linebreaks  }}</td>
+                <td>{{ worker.status|linebreaks  }}</td>
+            {% if worker.date_out == None %}
+                <td></td>
+
+                {% else %}
+            <td>{{ worker.date_out|linebreaks  }}</td>
+            {% endif %}
+
+             {% if worker.date_out == None %}
+                <td></td>
+
+                {% else %}
+            <td>{{ worker.date_in|linebreaks  }}</td>
+            {% endif %}
+            </tr>
+   {% endif %}
+
+    {% endfor %}
+        </tbody>
+</table>
+        <br>
+ {% if departament.departament_block_set.count != 0 %}
+        <h4>Отделы</h4>
+
+            {% for departament_block in departament.departament_block_set.all %}
+
+
+        {{ departament_block.name|title }}
+
+<table >
+        <thead>
+            <tr>
+                <th>Фио</th>
+                <th>Должность</th>
+                <th>Кабинет</th>
+                <th>Ip</th>
+
+                <th>Телефонный номер</th>
+
+                <th>Номер</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for worker in  departament_block.workers_set.all %}
+
+
+            <tr>
+                <td><p>{{ worker.fullname }}</p></td>
+                <td>{{ worker.position }}</td>
+                <td>{{ worker.room }}</td>
+                <td>{{ worker.ip_number }}</td>
+                   {% if worker.worker.mobile_phone  %}
+                     <td>{{ worker.mobile_phone }}</td>
+                    {% endif %}
+            {% if worker.phone %}
+            <td>{{ worker.phone }}</td>
+            {% endif %}
+
+
+            </tr>
+
+    {% endfor %}
+        </tbody>
+</table>
+
+           {% endfor %}
+
+
+
+
+
+        {% endif %}
+
+
+
+
+        </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+ {% endblock %}

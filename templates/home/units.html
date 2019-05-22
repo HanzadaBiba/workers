@@ -1,0 +1,14 @@
+   <div class="col-sm-3 ">
+        <div class="float-left">
+            <h4><a href="{{ unit.get_absolute_url }}">{{ unit}}</a></h4>
+        <h4>Филиалы</h4>
+            <ul class="list-group">
+            {% for unit in units %}
+  <li class="list-group-item"><a href="{{ unit.get_absolute_url }}">{{ unit.name }}</a></li>
+            {% endfor %}
+
+</ul>
+
+</div>
+
+        </div>

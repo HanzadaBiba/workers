@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load units_tags %}
+{% block title %}
+{{ unit.name|title }}
+{% endblock %}
+{% block content %}
+
+<div class="content">
+<div class="container-fuild">
+    <div class="row">
+
+     {% units_all %}
+        <div class="col-sm-9">
+        <div class="list">
+<ul>
+    {% for departament in unit.departaments_set.all %}
+    <li><a href="{{ departament.get_absolute_url }}">{{ departament.name }}</a></li>
+
+    {% endfor %}
+
+</ul>
+        </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+{% endblock %}

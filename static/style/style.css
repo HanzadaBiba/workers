@@ -1,0 +1,13 @@
+.list ul li{
+    align-content: center;
+    color: blue;
+}
+.list-group a{
+    color: black;
+}
+.list-group a:hover{
+    color:red
+}
+table tbody tr{
+    font-size: 16px;
+}
